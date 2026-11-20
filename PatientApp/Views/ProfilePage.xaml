@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PatientApp.Views.ProfilePage"
+             Title="Mi Perfil"
+             BackgroundColor="#F8F9FA">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="12">
+
+            <Label x:Name="LblNombreCompleto"
+                   FontSize="22"
+                   FontAttributes="Bold"
+                   TextColor="#111111"
+                   HorizontalOptions="Center" />
+
+            <Label x:Name="LblCorreo"
+                   FontSize="14"
+                   TextColor="Gray"
+                   HorizontalOptions="Center"
+                   Margin="0,0,0,10" />
+
+            <Label Text="Nombre(s)" FontSize="13" TextColor="Gray" />
+            <Entry x:Name="EntryNombre" BackgroundColor="White" TextColor="Black" />
+
+            <Grid ColumnDefinitions="*, *" ColumnSpacing="10">
+                <VerticalStackLayout Grid.Column="0" Spacing="5">
+                    <Label Text="Apellido Paterno" FontSize="13" TextColor="Gray" />
+                    <Entry x:Name="EntryPaterno" BackgroundColor="White" TextColor="Black" />
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Column="1" Spacing="5">
+                    <Label Text="Apellido Materno" FontSize="13" TextColor="Gray" />
+                    <Entry x:Name="EntryMaterno" BackgroundColor="White" TextColor="Black" />
+                </VerticalStackLayout>
+            </Grid>
+
+            <Grid ColumnDefinitions="*, 100" ColumnSpacing="10">
+                <VerticalStackLayout Grid.Column="0" Spacing="5">
+                    <Label Text="Teléfono" FontSize="13" TextColor="Gray" />
+                    <Entry x:Name="EntryTelefono" Keyboard="Telephone" BackgroundColor="White" TextColor="Black" />
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Column="1" Spacing="5">
+                    <Label Text="Edad" FontSize="13" TextColor="Gray" />
+                    <Entry x:Name="EntryEdad" Keyboard="Numeric" BackgroundColor="White" TextColor="Black" />
+                </VerticalStackLayout>
+            </Grid>
+
+            <Label Text="Alergias" FontSize="13" TextColor="Gray" />
+            <Entry x:Name="EntryAlergias" BackgroundColor="White" TextColor="Black" />
+
+            <Label Text="Condición(es) médica(s) (Opcional)" FontSize="13" TextColor="Gray" />
+            <Editor x:Name="EditorCondiciones" HeightRequest="75" BackgroundColor="White" TextColor="Black" />
+
+            <Button Text="Guardar Cambios"
+                    BackgroundColor="#10B981"
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    CornerRadius="8"
+                    HeightRequest="50"
+                    Margin="0,10,0,0"
+                    Clicked="OnGuardarClicked" />
+
+            <Button Text="Cerrar Sesión"
+                    BackgroundColor="#FEE2E2"
+                    TextColor="#DC2626"
+                    FontAttributes="Bold"
+                    CornerRadius="8"
+                    HeightRequest="45"
+                    Margin="0,5,0,20"
+                    Clicked="OnCerrarSesionClicked" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

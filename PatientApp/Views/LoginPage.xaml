@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PatientApp.Views.LoginPage"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="#F8F9FA">
+
+    <VerticalStackLayout Padding="30" Spacing="15" VerticalOptions="Center">
+
+        <Label Text="Medical Staff"
+               FontSize="32"
+               FontAttributes="Bold"
+               TextColor="#2563EB"
+               HorizontalOptions="Center" />
+
+        <Label Text="Inicia sesión para continuar"
+               FontSize="15"
+               TextColor="Gray"
+               HorizontalOptions="Center"
+               Margin="0,0,0,20" />
+
+        <Label Text="Correo Electrónico" FontSize="13" TextColor="Gray" />
+        <Entry x:Name="EntryEmail"
+               Placeholder="correo@ejemplo.com"
+               Keyboard="Email"
+               BackgroundColor="White"
+               TextColor="Black" />
+
+        <Label Text="Contraseña" FontSize="13" TextColor="Gray" />
+        <Entry x:Name="EntryPassword"
+               Placeholder="••••••••"
+               IsPassword="True"
+               BackgroundColor="White"
+               TextColor="Black" />
+
+        <Button Text="Iniciar Sesión"
+                BackgroundColor="#2563EB"
+                TextColor="White"
+                FontAttributes="Bold"
+                CornerRadius="8"
+                HeightRequest="50"
+                Margin="0,15,0,0"
+                Clicked="OnLoginClicked" />
+
+        <Button Text="¿No tienes cuenta? Regístrate"
+                BackgroundColor="Transparent"
+                TextColor="#2563EB"
+                FontAttributes="Bold"
+                Clicked="OnGoToRegisterClicked" />
+
+        <!-- Ayuda visual para tus pruebas -->
+        <Label Text="Pruebas: oswaldo@test.com / 123  |  maria@test.com / 123"
+               FontSize="11"
+               TextColor="Gray"
+               HorizontalOptions="Center"
+               Margin="0,20,0,0" />
+
+    </VerticalStackLayout>
+</ContentPage>

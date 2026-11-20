@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PatientApp.Views.ReschedulePage"
+             Title="Reprogramar Cita"
+             BackgroundColor="#F8F9FA">
+
+    <VerticalStackLayout Padding="20" Spacing="15">
+        <Label Text="Selecciona un nuevo horario"
+               FontSize="20"
+               FontAttributes="Bold"
+               TextColor="#111111" />
+
+        <Label x:Name="LblInfoCita" FontSize="14" TextColor="Gray" />
+
+        <Label Text="1. Día disponible" FontSize="13" TextColor="Gray" Margin="0,10,0,0" />
+        <Picker x:Name="PickerDia"
+                Title="Elige una nueva fecha"
+                BackgroundColor="White"
+                TextColor="Black"
+                SelectedIndexChanged="OnDiaSelected">
+            <Picker.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>19/11/2026</x:String>
+                    <x:String>20/11/2026</x:String>
+                    <x:String>21/11/2026</x:String>
+                </x:Array>
+            </Picker.ItemsSource>
+        </Picker>
+
+        <Label Text="2. Hora disponible" FontSize="13" TextColor="Gray" Margin="0,5,0,0" />
+        <Picker x:Name="PickerHora"
+                Title="Primero elige un día..."
+                BackgroundColor="White"
+                TextColor="Black"
+                IsEnabled="False" />
+
+        <Button Text="Guardar Nuevo Horario"
+                BackgroundColor="#2563EB"
+                TextColor="White"
+                FontAttributes="Bold"
+                CornerRadius="8"
+                HeightRequest="50"
+                Margin="0,20,0,0"
+                Clicked="OnGuardarClicked" />
+    </VerticalStackLayout>
+</ContentPage>

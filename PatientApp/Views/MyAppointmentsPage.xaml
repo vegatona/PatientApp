@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PatientApp.Views.MyAppointmentsPage"
+             Title="Mis Citas"
+             BackgroundColor="#F8F9FA">
+
+    <Grid RowDefinitions="Auto, *" Padding="20" RowSpacing="15">
+
+        <!-- Pestañas Próximas / Historial -->
+        <Grid Grid.Row="0" ColumnDefinitions="*, *" ColumnSpacing="10">
+            <Button x:Name="BtnProximas"
+                    Grid.Column="0"
+                    Text="Próximas"
+                    BackgroundColor="#2563EB"
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    CornerRadius="8"
+                    Clicked="OnProximasClicked" />
+
+            <Button x:Name="BtnHistorial"
+                    Grid.Column="1"
+                    Text="Historial"
+                    BackgroundColor="White"
+                    TextColor="Gray"
+                    BorderColor="#D1D5DB"
+                    BorderWidth="1"
+                    FontAttributes="Bold"
+                    CornerRadius="8"
+                    Clicked="OnHistorialClicked" />
+        </Grid>
+
+        <!-- Lista de Próximas Citas -->
+        <CollectionView x:Name="UpcomingList" Grid.Row="1" IsVisible="True">
+            <CollectionView.EmptyView>
+                <Label Text="No tienes citas próximas agendadas."
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                       TextColor="Gray" />
+            </CollectionView.EmptyView>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border Stroke="#E5E7EB" StrokeThickness="1" BackgroundColor="White" Padding="15" Margin="0,0,0,12">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="10" />
+                        </Border.StrokeShape>
+                        <VerticalStackLayout Spacing="6">
+                            <HorizontalStackLayout Spacing="10">
+                                <Label Text="{Binding Status}" BackgroundColor="#FEF3C7" TextColor="#D97706" FontSize="11" FontAttributes="Bold" Padding="6,2" />
+                                <Label Text="{Binding Folio}" FontSize="12" TextColor="Gray" VerticalOptions="Center" />
+                            </HorizontalStackLayout>
+
+                            <Label FontSize="17" FontAttributes="Bold" TextColor="#111111">
+                                <Label.Text>
+                                    <MultiBinding StringFormat="{}{0} • {1}">
+                                        <Binding Path="Date" />
+                                        <Binding Path="Time" />
+                                    </MultiBinding>
+                                </Label.Text>
+                            </Label>
+
+                            <Label Text="{Binding ClinicName}" FontSize="14" FontAttributes="Bold" TextColor="#333333" />
+                            <Label Text="{Binding Specialty}" FontSize="13" TextColor="Gray" />
+
+                            <Grid ColumnDefinitions="*, *" ColumnSpacing="10" Margin="0,10,0,0">
+                                <Button Grid.Column="0"
+                                        Text="Reprogramar"
+                                        BackgroundColor="White"
+                                        TextColor="#2563EB"
+                                        BorderColor="#2563EB"
+                                        BorderWidth="1"
+                                        CornerRadius="8"
+                                        HeightRequest="40"
+                                        CommandParameter="{Binding .}"
+                                        Clicked="OnReprogramarClicked" />
+
+                                <Button Grid.Column="1"
+                                        Text="Cancelar"
+                                        BackgroundColor="#FEE2E2"
+                                        TextColor="#DC2626"
+                                        CornerRadius="8"
+                                        HeightRequest="40"
+                                        CommandParameter="{Binding .}"
+                                        Clicked="OnCancelarClicked" />
+                            </Grid>
+                        </VerticalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!-- Lista de Historial (Citas Cumplidas) -->
+        <CollectionView x:Name="PastList" Grid.Row="1" IsVisible="False">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border Stroke="#E5E7EB" StrokeThickness="1" BackgroundColor="White" Padding="15" Margin="0,0,0,12" Opacity="0.85">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="10" />
+                        </Border.StrokeShape>
+                        <VerticalStackLayout Spacing="6">
+                            <HorizontalStackLayout Spacing="10">
+                                <Label Text="{Binding Status}" BackgroundColor="#D1FAE5" TextColor="#059669" FontSize="11" FontAttributes="Bold" Padding="6,2" />
+                                <Label Text="{Binding Folio}" FontSize="12" TextColor="Gray" VerticalOptions="Center" />
+                            </HorizontalStackLayout>
+
+                            <Label FontSize="16" FontAttributes="Bold" TextColor="#111111">
+                                <Label.Text>
+                                    <MultiBinding StringFormat="{}{0} • {1}">
+                                        <Binding Path="Date" />
+                                        <Binding Path="Time" />
+                                    </MultiBinding>
+                                </Label.Text>
+                            </Label>
+
+                            <Label Text="{Binding ClinicName}" FontSize="14" FontAttributes="Bold" TextColor="#333333" />
+                            <Label Text="{Binding Specialty}" FontSize="13" TextColor="Gray" />
+                        </VerticalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </Grid>
+</ContentPage>

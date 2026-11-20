@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PatientApp.Views.ExplorePage"
+             Title="Explorar Clínicas"
+             BackgroundColor="#F8F9FA">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <!-- 1. Buscador -->
+            <SearchBar Placeholder="Buscar clínica por nombre..."
+                       BackgroundColor="White"
+                       TextColor="Black" />
+
+            <!-- 2. Filtros (Especialidad y Localidad) -->
+            <Grid ColumnDefinitions="*, *" ColumnSpacing="10">
+                <Picker Grid.Column="0" Title="Especialidad" BackgroundColor="White" TextColor="Black">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>Todas</x:String>
+                            <x:String>Medicina General</x:String>
+                            <x:String>Odontología</x:String>
+                            <x:String>Pediatría</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+
+                <Picker Grid.Column="1" Title="Localidad" BackgroundColor="White" TextColor="Black">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>Todas</x:String>
+                            <x:String>Norte</x:String>
+                            <x:String>Centro</x:String>
+                            <x:String>Sur</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+            </Grid>
+
+            <!-- 3. Sección Clínicas Recomendadas -->
+            <Label Text="Clínicas Recomendadas"
+                   FontSize="18"
+                   FontAttributes="Bold"
+                   TextColor="#333333"
+                   Margin="0,15,0,5" />
+
+            <CollectionView x:Name="ClinicsList">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border Stroke="#E5E7EB" StrokeThickness="1" BackgroundColor="White" Padding="15" Margin="0,0,0,12">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="10" />
+                            </Border.StrokeShape>
+                            <Grid ColumnDefinitions="*, Auto" VerticalOptions="Center">
+                                <Label Grid.Column="0"
+                                       Text="{Binding Name}"
+                                       FontSize="17"
+                                       FontAttributes="Bold"
+                                       TextColor="#111111"
+                                       VerticalOptions="Center" />
+
+                                <Button Grid.Column="1"
+                                        Text="Ver Detalles"
+                                        BackgroundColor="#E0F2FE"
+                                        TextColor="#0284C7"
+                                        FontAttributes="Bold"
+                                        CornerRadius="8"
+                                        HeightRequest="38"
+                                        CommandParameter="{Binding .}"
+                                        Clicked="OnVerDetallesClicked" />
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
