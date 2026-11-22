@@ -5,6 +5,8 @@ namespace PatientApp.Views;
 
 public partial class MyAppointmentsPage : ContentPage
 {
+    private Appointment? _citaACancelar;
+
     public MyAppointmentsPage()
     {
         InitializeComponent();
@@ -51,20 +53,59 @@ public partial class MyAppointmentsPage : ContentPage
         }
     }
 
-    private async void OnCancelarClicked(object sender, EventArgs e)
+    private void OnCancelarClicked(object sender, EventArgs e)
     {
         if (sender is Button btn && btn.CommandParameter is Appointment cita)
         {
-            bool confirmar = await DisplayAlert(
-                "Cancelar Cita",
-                $"¿Estás seguro de cancelar tu cita del {cita.Date} ({cita.Time})?",
-                "Confirmar",
-                "Cancelar");
+            _citaACancelar = cita;
+            LblCancelInfo.Text = $"¿Estás seguro de cancelar tu cita del {cita.Date} ({cita.Time})?\nExplica brevemente el motivo:";
+            EntryCancelReason.Text = string.Empty;
 
-            if (confirmar)
-            {
-                UserStore.CurrentUser?.UpcomingAppointments.Remove(cita);
-            }
+            LblCancelError.IsVisible = true;
+            BtnConfirmarCancelacion.IsEnabled = false;
+            BtnConfirmarCancelacion.BackgroundColor = Color.FromArgb("#D1D5DB");
+            BtnConfirmarCancelacion.TextColor = Color.FromArgb("#6B7280");
+
+            CancelModalOverlay.IsVisible = true;
         }
+    }
+
+    private void OnCancelReasonChanged(object sender, TextChangedEventArgs e)
+    {
+        bool tieneTexto = !string.IsNullOrWhiteSpace(e.NewTextValue);
+
+        LblCancelError.IsVisible = !tieneTexto;
+        BtnConfirmarCancelacion.IsEnabled = tieneTexto;
+
+        if (tieneTexto)
+        {
+            BtnConfirmarCancelacion.BackgroundColor = Color.FromArgb("#DC2626");
+            BtnConfirmarCancelacion.TextColor = Colors.White;
+        }
+        else
+        {
+            BtnConfirmarCancelacion.BackgroundColor = Color.FromArgb("#D1D5DB");
+            BtnConfirmarCancelacion.TextColor = Color.FromArgb("#6B7280");
+        }
+    }
+
+    private void OnCerrarModalClicked(object sender, EventArgs e)
+    {
+        CancelModalOverlay.IsVisible = false;
+        _citaACancelar = null;
+    }
+
+    private void OnConfirmarCancelacionClicked(object sender, EventArgs e)
+    {
+        if (_citaACancelar == null) return;
+
+        _citaACancelar.Status = "CANCELADA";
+        _citaACancelar.CancelReason = EntryCancelReason.Text.Trim();
+
+        UserStore.CurrentUser?.UpcomingAppointments.Remove(_citaACancelar);
+        UserStore.CurrentUser?.PastAppointments.Insert(0, _citaACancelar);
+
+        CancelModalOverlay.IsVisible = false;
+        _citaACancelar = null;
     }
 }
